@@ -45,15 +45,15 @@ bot.dialog('/', [
         builder.Prompts.number(session, "Oi " + results.response + ", qual a sua idade?"); 
     },
     function (session, results) {
-        session.userData.name = results.response;
+        session.userData.age = results.response;
         builder.Prompts.number(session, session.userData.name + ", qual a quantidade de horas que você pode disponibilizar para um plano B?"); 
     },
     function (session, results) {
-        session.userData.coding = results.response;
+        session.userData.hours = results.response;
         builder.Prompts.choice(session, "Você tem linkedin?", ["Sim", "Não"]);
     },
     function (session, results) {
-        session.userData.language = results.response.entity;
+        session.userData.islinkedin = results.response.entity;
         session.send("Got it... " + session.userData.name + 
                     " you've been programming for " + session.userData.coding + 
                     " years and use " + session.userData.language + ".");
