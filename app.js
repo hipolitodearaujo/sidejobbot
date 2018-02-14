@@ -38,7 +38,7 @@ bot.set('storage', tableStorage);
 
 bot.dialog('/', [
     function (session) {
-        builder.Prompts.text(session, "Hello... What's your name?");
+        builder.Prompts.text(session, "Oi... Qual o seu nome?");
     },
     function (session, results) {
         session.userData.name = results.response;
