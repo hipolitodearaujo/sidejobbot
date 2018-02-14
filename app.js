@@ -54,8 +54,13 @@ bot.dialog('/', [
     },
     function (session, results) {
         session.userData.islinkedin = results.response.entity;
-        session.send("Muito bem... " + session.userData.name + 
-                    " você tem " + session.userData.age + 
-                    " de idade, e tem disponibilidade de trabalhar em um plano B por " + session.userData.hours + " horas." );
+        if(results.response.entity==1){
+        	 session.send("Ótimo você tem linkedin." );
+        }else{
+        	session.send("Infelizmente você tem que criar uma conta no linkedin (http://www.linkedin.com) para prosseguir." );
+        }
+//        session.send("Muito bem... " + session.userData.name + 
+//                    " você tem " + session.userData.age + 
+//                    " de idade, e tem disponibilidade de trabalhar em um plano B por " + session.userData.hours + " horas." );
     }
 ]);
