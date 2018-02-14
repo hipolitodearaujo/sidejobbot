@@ -54,7 +54,7 @@ bot.dialog('/', [
     },
     function (session, results) {
         session.userData.islinkedin = results.response.entity;
-        if(results.response.entity==1){
+        if(results.response.entity="Sim"){
         	 session.send("Ótimo você tem linkedin." );
         }else{
         	session.send("Infelizmente você tem que criar uma conta no linkedin (http://www.linkedin.com) para prosseguir." + results.response.entity);
