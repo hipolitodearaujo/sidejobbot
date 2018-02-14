@@ -57,7 +57,7 @@ bot.dialog('/', [
         if(results.response.entity==1){
         	 session.send("Ótimo você tem linkedin." );
         }else{
-        	session.send("Infelizmente você tem que criar uma conta no linkedin (http://www.linkedin.com) para prosseguir." );
+        	session.send("Infelizmente você tem que criar uma conta no linkedin (http://www.linkedin.com) para prosseguir." + results.response.entity);
         }
 //        session.send("Muito bem... " + session.userData.name + 
 //                    " você tem " + session.userData.age + 
