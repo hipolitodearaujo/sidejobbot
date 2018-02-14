@@ -54,8 +54,8 @@ bot.dialog('/', [
     },
     function (session, results) {
         session.userData.islinkedin = results.response.entity;
-        session.send("Got it... " + session.userData.name + 
-                    " you've been programming for " + session.userData.coding + 
-                    " years and use " + session.userData.language + ".");
+        session.send("Muito bem... " + session.userData.name + 
+                    " você tem " + session.userData.age + 
+                    " de idade, e tem disponibilidade de trabalhar em um plano B por " + session.userData.hours + " horas." );
     }
 ]);
