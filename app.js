@@ -36,6 +36,17 @@ var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azu
 var bot = new builder.UniversalBot(connector);
 bot.set('storage', tableStorage);
 
+//Bot listening for inbound backchannel events - in this case it only listens for events named "buttonClicked"
+//bot.on("event", function (event) {
+//    var msg = new builder.Message().address(event.address);
+//    msg.textLocale("en-us");
+//    if (event.name === "buttonClicked") {
+//        msg.text("I see that you just pushed that button");
+//    }
+//    bot.send(msg);
+//})
+
+
 bot.dialog('/', [
     function (session) {
         builder.Prompts.text(session, "Tudo bem... Qual o seu nome?");
@@ -59,6 +70,11 @@ bot.dialog('/', [
         }else{
         	session.send("Infelizmente você tem que criar uma conta no linkedin (http://www.linkedin.com) para prosseguir." + results.response.entity);
         }
+        
+      //Basic root dialog which send a changeBackground event. No NLP, regex, validation here - just grabs input and sends it back as an event. 
+        var reply = createEvent("changeBackground", session.message.text, session.message.address);
+        session.endDialog(reply);
+        
 //        session.send("Muito bem... " + session.userData.name + 
 //                    " você tem " + session.userData.age + 
 //                    " de idade, e tem disponibilidade de trabalhar em um plano B por " + session.userData.hours + " horas." );
