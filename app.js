@@ -40,14 +40,14 @@ var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azu
 bot.set('storage', tableStorage);
 
 //Bot listening for inbound backchannel events - in this case it only listens for events named "buttonClicked"
-//bot.on("event", function (event) {
-//    var msg = new builder.Message().address(event.address);
-//    msg.textLocale("en-us");
-//    if (event.name === "buttonClicked") {
-//        msg.text("I see that you just pushed that button");
-//    }
-//    bot.send(msg);
-//})
+bot.on("event", function (event) {
+    var msg = new builder.Message().address(event.address);
+    msg.textLocale("en-us");
+    if (event.name === "buttonClicked") {
+        msg.text("I see that you just pushed that button");
+    }
+    bot.send(msg);
+})
 
 
 bot.dialog('/', [
@@ -83,3 +83,12 @@ bot.dialog('/', [
 //                    " de idade, e tem disponibilidade de trabalhar em um plano B por " + session.userData.hours + " horas." );
     }
 ]);
+
+//Creates a backchannel event
+const createEvent = (eventName, value, address) => {
+    var msg = new builder.Message().address(address);
+    msg.data.type = "event";
+    msg.data.name = eventName;
+    msg.data.value = value;
+    return msg;
+}
