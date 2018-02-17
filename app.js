@@ -49,7 +49,7 @@ bot.on("event", function (event) {
     bot.send(msg);
 })
 
-bot.dialog('first', [
+bot.dialog('/firstRun', [
 	 function (session) {
 	        builder.Prompts.text(session, "Tudo bem... Qual o seu nome?");
 	 }
