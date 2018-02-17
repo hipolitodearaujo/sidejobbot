@@ -13,8 +13,22 @@ var connector = new builder.ChatConnector({
     openIdMetadata: process.env.BotOpenIdMetadata 
 });
 
+/*----------------------------------------------------------------------------------------
+* Bot Storage: This is a great spot to register the private state storage for your bot. 
+* We provide adapters for Azure Table, CosmosDb, SQL Azure, or you can implement your own!
+* For samples and documentation, see: https://github.com/Microsoft/BotBuilder-Azure
+* ---------------------------------------------------------------------------------------- */
+
+var tableName = 'botdata';
+var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
+var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
+
 //Create your bot with a function to receive messages from the user
-var bot = new builder.UniversalBot(connector);
+var bot = new builder.UniversalBot(connector, function (session) {
+    session.send("%s, I heard: %s", session.userData.name, session.message.text);
+    session.send("Say 'help' or something else...");
+}).set('storage', tableStorage); // Register in memory storage;
+
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -27,15 +41,7 @@ server.post('/api/messages', connector.listen());
 
 bot.use(builder.Middleware.dialogVersion({ version: 0.2, dialogId: '*:/firstRun', resetCommand: /^reset/i }));
 
-/*----------------------------------------------------------------------------------------
-* Bot Storage: This is a great spot to register the private state storage for your bot. 
-* We provide adapters for Azure Table, CosmosDb, SQL Azure, or you can implement your own!
-* For samples and documentation, see: https://github.com/Microsoft/BotBuilder-Azure
-* ---------------------------------------------------------------------------------------- */
 
-var tableName = 'botdata';
-var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
-var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
 
 bot.set('storage', tableStorage);
 
