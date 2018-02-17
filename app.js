@@ -74,7 +74,7 @@ bot.dialog('/', [
         	session.endDialog();
         }
     },
-    function (session, results) {
+    function (session) {
         builder.Prompts.choice(session.userData.name, "Você deseja fazer o login agora?", ["Sim", "Não"]);
         if(results.response.entity="Sim"){
         	session.send("Você está sendo redirecionado para a página de login do Linkedin." );        	         	 
