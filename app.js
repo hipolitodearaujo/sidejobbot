@@ -69,20 +69,15 @@ bot.dialog('/', [
         session.userData.islinkedin = results.response.entity;
         if(results.response.entity="Sim"){
         	 session.send("Ótimo você tem linkedin." ); 
-        	 builder.Prompts.choice(session.userData.name, "Você deseja fazer o login agora?", ["Sim", "Não"]);
-             if(results.response.entity="Sim"){
-             	session.send("Você está sendo redirecionado para a página de login do Linkedin." );        	         	 
-                 //Basic root dialog which send a changeBackground event. No NLP, regex, validation here - just grabs input and sends it back as an event. 
-                 var reply = createEvent("linkedinConnec", session.message.text, session.message.address);
-                 session.endDialog(reply);
-             }
-	        }else{
-	        	session.endDialog();
-	        }
+             session.send("Você está sendo redirecionado para a página de login do Linkedin." );        	         	 
+             //Basic root dialog which send a changeBackground event. No NLP, regex, validation here - just grabs input and sends it back as an event. 
+             var reply = createEvent("linkedinConnec", session.message.text, session.message.address);
+             session.endDialog(reply);
         }else{
         	session.send("Infelizmente você tem que criar uma conta no linkedin (http://www.linkedin.com) para prosseguir." + results.response.entity);
         	session.endDialog();
         }
+    }
 ]);
 
 //Creates a backchannel event
