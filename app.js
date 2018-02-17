@@ -46,16 +46,19 @@ bot.on('conversationUpdate', function (message) {
             if (identity.id === message.address.bot.id) {
                 bot.send(new builder.Message()
                     .address(message.address)
-                    .text("Hello!  I'm a bot."));
+                    .text("Oi!  Eu sou o assistente virtual da SideJob"));
+                bot.send(new builder.Message()
+                .address(message.address)
+                .text(" Qual o seu nome?"));
             }
         });
     }
 });
 
 bot.dialog('/', [
-    function (session) {
-        builder.Prompts.text(session, "Tudo bem... Qual o seu nome?");
-    },
+//    function (session) {
+//        builder.Prompts.text(session, "Tudo bem... Qual o seu nome?");
+//    },
     function (session, results) {
         session.userData.name = results.response;
         builder.Prompts.number(session, "Oi " + results.response + ", qual a sua idade?"); 
