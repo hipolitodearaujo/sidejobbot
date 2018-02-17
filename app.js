@@ -14,15 +14,7 @@ var connector = new builder.ChatConnector({
 });
 
 //Create your bot with a function to receive messages from the user
-var bot = new builder.UniversalBot(connector, [
-    // sets the default or root dialog
-    (session, args, next) => {
-        session.beginDialog('first');
-    },
-    (session, results, next) => {
-        // this will be executed when the new dialog on the stack completes
-    }
-]);
+var bot = new builder.UniversalBot(connector);
 
 // Setup Restify Server
 var server = restify.createServer();
