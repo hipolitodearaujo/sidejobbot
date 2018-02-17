@@ -25,7 +25,7 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
 
-bot.use(builder.Middleware.dialogVersion({ version: 0.2, dialogId: '*:/firstRun', resetCommand: /^reset/i }));
+bot.use(builder.Middleware.dialogVersion({ version: 0.2, resetCommand: /^reset/i }));
 
 /*----------------------------------------------------------------------------------------
 * Bot Storage: This is a great spot to register the private state storage for your bot. 
@@ -40,20 +40,17 @@ var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azu
 bot.set('storage', tableStorage);
 
 //Bot listening for inbound backchannel events - in this case it only listens for events named "buttonClicked"
-bot.on("event", function (event) {
-    var msg = new builder.Message().address(event.address);
-    msg.textLocale("en-us");
-    if (event.name === "StartVirtualAssist") {
-        msg.text("I see that you just pushed that button");
+bot.on('conversationUpdate', function (message) {
+    if (message.membersAdded) {
+        message.membersAdded.forEach(function (identity) {
+            if (identity.id === message.address.bot.id) {
+                bot.send(new builder.Message()
+                    .address(message.address)
+                    .text("Hello!  I'm a bot."));
+            }
+        });
     }
-    bot.send(msg);
-})
-
-bot.dialog('/firstRun', [
-	 function (session) {
-	        builder.Prompts.text(session, "Tudo bem... Qual o seu nome?");
-	 }
-]);
+});
 
 bot.dialog('/', [
     function (session) {
