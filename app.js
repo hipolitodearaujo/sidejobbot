@@ -58,8 +58,25 @@ bot.dialog('/', [
     },
     function (session, results) {
         session.userData.name = results.response;
-        builder.Prompts.number(session, "Oi " + results.response + ", qual a sua idade?"); 
+        builder.Prompts.choice(session, session.userData.name+ ", você já tem cadastro na SideJOb?", ["Sim", "Não"]);
     },
+    function (session, results) {
+        if(results.response.entity=="Sim"){
+        	 session.send("Ótimo você já é nosso usuário." ); 
+             session.send(session.userData.name + ", você está sendo redirecionado para a página de login do Linkedin." );        	         	 
+             //Basic root dialog which send a changeBackground event. No NLP, regex, validation here - just grabs input and sends it back as an event. 
+             var reply = createEvent("linkedinConnec", null, session.message.address);
+             session.endDialog(reply);
+        }else{
+        	session.send(session.userData.name + ", ótimo, então vamos prosseguir com o cadastro.");
+        	builder.Prompts.number(session, "Oi " + results.response + ", qual a sua idade?"); 
+        }
+        
+    },
+//    function (session, results) {
+////        session.userData.name = results.response;
+//        builder.Prompts.number(session, "Oi " + results.response + ", qual a sua idade?"); 
+//    },
     function (session, results) {
         session.userData.age = results.response;
         builder.Prompts.number(session, session.userData.name + ", qual a quantidade de horas que você pode disponibilizar para um plano B?"); 
