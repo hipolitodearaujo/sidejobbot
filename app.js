@@ -77,7 +77,7 @@ bot.dialog('/', [
         	var reply = createEvent("linkedinConnec", false, session.message.address);
         	
         }
-        session.endDialog();
+        session.endDialog(reply);
     }
 ]);
 
