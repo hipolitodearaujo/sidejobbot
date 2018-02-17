@@ -14,7 +14,15 @@ var connector = new builder.ChatConnector({
 });
 
 //Create your bot with a function to receive messages from the user
-var bot = new builder.UniversalBot(connector);
+var bot = new builder.UniversalBot(connector, [
+    // sets the default or root dialog
+    (session, args, next) => {
+        session.beginDialog('first');
+    },
+    (session, results, next) => {
+        // this will be executed when the new dialog on the stack completes
+    }
+]);
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -48,6 +56,12 @@ bot.on("event", function (event) {
     }
     bot.send(msg);
 })
+
+bot.dialog('first', [
+	 function (session) {
+	        builder.Prompts.text(session, "Tudo bem... Qual o seu nome?");
+	 }
+]);
 
 bot.dialog('/', [
     function (session) {
