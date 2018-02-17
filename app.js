@@ -49,6 +49,9 @@ bot.on("event", function (event) {
     bot.send(msg);
 })
 
+bot.add('/notify', function (session) {
+   session.endDialog("I'm sending you a proactive message!");
+});
 
 bot.dialog('/', [
     function (session) {
