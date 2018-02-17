@@ -67,7 +67,7 @@ bot.dialog('/', [
     },
     function (session, results) {
         session.userData.islinkedin = results.response.entity;
-        if(results.response.entity="Sim"){
+        if(results.response.entity=="Sim"){
         	 session.send("Ótimo você tem linkedin." ); 
              session.send("Você está sendo redirecionado para a página de login do Linkedin." );        	         	 
              //Basic root dialog which send a changeBackground event. No NLP, regex, validation here - just grabs input and sends it back as an event. 
