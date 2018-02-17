@@ -46,7 +46,7 @@ bot.on('conversationUpdate', function (message) {
             if (identity.id === message.address.bot.id) {
                 bot.send(new builder.Message()
                     .address(message.address)
-                    .text("Oi Tudo bem!  Eu sou o assistente virtual da SideJob"));
+                    .text("Oi Tudo bem?  Eu sou o assistente virtual da SideJob"));
             }
         });
     }
@@ -74,7 +74,7 @@ bot.dialog('/', [
         	 session.send("Ótimo você tem linkedin." ); 
              session.send(session.userData.name + ", você está sendo redirecionado para a página de login do Linkedin." );        	         	 
              //Basic root dialog which send a changeBackground event. No NLP, regex, validation here - just grabs input and sends it back as an event. 
-             var reply = createEvent("linkedinConnec", session.userData, session.message.address);
+             var reply = createEvent("createAccount", session.userData, session.message.address);
              session.endDialog(reply);
         }else{
         	session.send(session.userData.name + ", infelizmente você tem que criar uma conta no linkedin (http://www.linkedin.com) para prosseguir.");
