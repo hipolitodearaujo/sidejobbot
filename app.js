@@ -25,7 +25,7 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
 
-bot.use(builder.Middleware.dialogVersion({ version: 0.2, resetCommand: /^reset/i }));
+bot.use(builder.Middleware.dialogVersion({ version: 0.2, dialogId: '*:/firstRun', resetCommand: /^reset/i }));
 
 /*----------------------------------------------------------------------------------------
 * Bot Storage: This is a great spot to register the private state storage for your bot. 
