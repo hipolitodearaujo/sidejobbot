@@ -13,13 +13,8 @@ var connector = new builder.ChatConnector({
     openIdMetadata: process.env.BotOpenIdMetadata 
 });
 
-var inMemoryStorage = new builder.MemoryBotStorage();
-
 //Create your bot with a function to receive messages from the user
-var bot = new builder.UniversalBot(connector, function (session) {
-    session.send("%s, I heard: %s", session.userData.name, session.message.text);
-    session.send("Say 'help' or something else...");
-}).set('storage', inMemoryStorage); // Register in memory storage;
+var bot = new builder.UniversalBot(connector);
 
 // Setup Restify Server
 var server = restify.createServer();
